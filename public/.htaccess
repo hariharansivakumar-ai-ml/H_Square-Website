@@ -1,0 +1,116 @@
+# ----------------------------------------------------------------------
+# LandsnDeeds - Production Apache Config (.htaccess) - GoDaddy Optimized
+# ----------------------------------------------------------------------
+
+# Disable MultiViews to prevent GoDaddy from overriding SPA client-side routes
+Options -MultiViews
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # 1. Force HTTPS
+  RewriteCond %{HTTPS} off
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # 2. Exclude missing static assets from being rewritten to index.html
+  # This stops rewrite processing, causing Apache to serve the missing file directly,
+  # resulting in a standard, safe 404 error instead of a 500 error.
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_URI} \.(css|js|webp|png|jpe?g|gif|ico|svg|woff2?|eot|ttf|otf|mp4|webm|json|xml|txt|map)$ [NC]
+  RewriteRule ^ - [L]
+
+  # 3. React Router SPA Routing
+  # Rewrite all other non-existent paths to /index.html for client-side routing
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.html [L]
+</IfModule>
+
+# ----------------------------------------------------------------------
+# Performance: Gzip Compression (mod_deflate)
+# ----------------------------------------------------------------------
+<IfModule mod_deflate.c>
+  # Compress HTML, CSS, JavaScript, Text, XML, and fonts
+  AddOutputFilterByType DEFLATE application/javascript
+  AddOutputFilterByType DEFLATE application/rss+xml
+  AddOutputFilterByType DEFLATE application/vnd.ms-fontobject
+  AddOutputFilterByType DEFLATE application/x-font
+  AddOutputFilterByType DEFLATE application/x-font-opentype
+  AddOutputFilterByType DEFLATE application/x-font-otf
+  AddOutputFilterByType DEFLATE application/x-font-truetype
+  AddOutputFilterByType DEFLATE application/x-font-ttf
+  AddOutputFilterByType DEFLATE application/x-javascript
+  AddOutputFilterByType DEFLATE application/xhtml+xml
+  AddOutputFilterByType DEFLATE application/xml
+  AddOutputFilterByType DEFLATE font/opentype
+  AddOutputFilterByType DEFLATE font/otf
+  AddOutputFilterByType DEFLATE font/ttf
+  AddOutputFilterByType DEFLATE image/svg+xml
+  AddOutputFilterByType DEFLATE image/x-icon
+  AddOutputFilterByType DEFLATE text/css
+  AddOutputFilterByType DEFLATE text/html
+  AddOutputFilterByType DEFLATE text/javascript
+  AddOutputFilterByType DEFLATE text/plain
+  AddOutputFilterByType DEFLATE text/xml
+
+  # Suppress browser bugs in ancient browsers
+  BrowserMatch ^Mozilla/4 gzip-only-text/html
+  BrowserMatch ^Mozilla/4\.0[678] no-gzip
+  BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+</IfModule>
+
+# ----------------------------------------------------------------------
+# Caching: Expiration Headers (mod_expires & mod_headers)
+# ----------------------------------------------------------------------
+<IfModule mod_expires.c>
+  ExpiresEngine On
+  ExpiresDefault "access plus 1 month"
+
+  # Static assets containing hashes are safe to cache aggressively for 1 year
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType application/x-javascript "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/gif "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 year"
+  ExpiresByType font/ttf "access plus 1 year"
+  ExpiresByType font/woff "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+
+  # HTML & configuration files - NEVER cache (forces checking for updates)
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType application/json "access plus 0 seconds"
+  ExpiresByType application/ld+json "access plus 0 seconds"
+</IfModule>
+
+# Cache-Control headers to reinforce expiry rules and beat GoDaddy server caching
+<IfModule mod_headers.c>
+  # 1. Disable caching for HTML (crucial for updating chunk hashes instantly)
+  # GoDaddy Varnish and system proxy cache-control settings are explicitly set to no-cache
+  <FilesMatch "\.(html|htm)$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate, max-age=0, private"
+    Header set Pragma "no-cache"
+    Header set Expires 0
+  </FilesMatch>
+
+  # 2. Aggressively cache CSS and JS files (immutable since Vite outputs hashed files)
+  <FilesMatch "\.(css|js)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # 3. Cache static media assets and web fonts
+  <FilesMatch "\.(gif|jpe?g|png|ico|woff2?|eot|ttf|otf|svg|webp)$">
+    Header set Cache-Control "public, max-age=31536000, must-revalidate"
+  </FilesMatch>
+
+  # 4. Security Hardening Headers
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set X-XSS-Protection "1; mode=block"
+  Header set Referrer-Policy "no-referrer-when-downgrade"
+</IfModule>

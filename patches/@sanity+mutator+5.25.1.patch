@@ -1,0 +1,38 @@
+diff --git a/node_modules/@sanity/mutator/lib/index.js b/node_modules/@sanity/mutator/lib/index.js
+index 05204ca..abcb74f 100644
+--- a/node_modules/@sanity/mutator/lib/index.js
++++ b/node_modules/@sanity/mutator/lib/index.js
+@@ -766,8 +766,9 @@ class PlainProbe {
+     return isRecord$1(this._value) ? Object.keys(this._value) : [];
+   }
+   getAttribute(key) {
+-    if (!isRecord$1(this._value))
+-      throw new Error("getAttribute only applies to plain objects");
++    if (!isRecord$1(this._value)) {
++      return null;
++    }
+     return this.hasAttribute(key) ? new PlainProbe(this._value[key], this.path.concat(key)) : null;
+   }
+   get() {
+@@ -843,8 +844,9 @@ class ImmutableAccessor {
+     return isRecord(this._value) ? Object.keys(this._value) : [];
+   }
+   getAttribute(key) {
+-    if (!isRecord(this._value))
+-      throw new Error("getAttribute only applies to plain objects");
++    if (!isRecord(this._value)) {
++      return null;
++    }
+     return this.hasAttribute(key) ? new ImmutableAccessor(this._value[key], this.path.concat(key)) : null;
+   }
+   // Common writer, supported by all containers
+@@ -1145,6 +1147,9 @@ class Patcher {
+     this.patches = parsePatch(patch);
+   }
+   apply(value) {
++    if (value === null || value === undefined) {
++      return value;
++    }
+     const accessor = new ImmutableAccessor(value);
+     return this.applyViaAccessor(accessor).get();
+   }
