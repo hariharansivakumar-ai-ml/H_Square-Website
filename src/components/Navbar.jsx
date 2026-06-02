@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Menu, X, ArrowRight } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
-import logo from '../assets/Logo_lnd.webp';
+import logo from '../assets/Logo.jpeg';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -28,14 +28,17 @@ const Navbar = () => {
 
   return (
     <nav
-      className="fixed top-0 left-0 w-full z-[100] py-4 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm transition-all duration-500"
+      className="fixed top-0 left-0 w-full z-[100] py-2 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm transition-all duration-500"
     >
       <div className="container mx-auto px-6 flex justify-between items-center">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-3 group cursor-pointer">
-          <div className="w-24 h-24 overflow-hidden rounded-lg">
-            <img src={logo} alt="LandsnDeeds Logo" className="w-full h-full object-contain border-none" />
+          <div className="w-14 h-14 overflow-hidden rounded-lg shrink-0">
+            <img src={logo} alt="HSquare Promoters Logo" className="w-full h-full object-contain border-none" />
           </div>
+          <span className="font-serif font-bold text-[#1A335E] text-xs md:text-sm tracking-wider group-hover:text-[#D6B97B] transition-colors uppercase leading-tight">
+            HSquare <br /> Promoters
+          </span>
         </Link>
 
         {/* Desktop Nav */}

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Calendar, ArrowRight, Tag, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { client, urlFor } from '../sanity/client';
+import { staticBlogs } from '../data/staticData';
 
 const BlogsGrid = () => {
   const [blogs, setBlogs] = useState([]);
@@ -11,29 +11,10 @@ const BlogsGrid = () => {
   const blogsPerPage = 6;
 
   useEffect(() => {
-    const fetchBlogs = async () => {
-      try {
-        const query = `*[_type == "blog"] | order(publishedAt desc) {
-          _id,
-          title,
-          slug,
-          mainImage,
-          publishedAt,
-          "categoryName": blogCategory->title,
-          seoDescription,
-          body
-        }`;
-        
-        const results = await client.fetch(query);
-        setBlogs(results);
-      } catch (error) {
-        console.error("Failed to fetch blogs:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchBlogs();
+    // Sort static blogs by date descending
+    const sortedBlogs = [...staticBlogs].sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
+    setBlogs(sortedBlogs);
+    setIsLoading(false);
   }, []);
 
   // Format date safely
@@ -47,16 +28,11 @@ const BlogsGrid = () => {
     });
   };
 
-  // Extract plain text from Portable Text body
+  // Extract plain text from local body blocks
   const getBodyExcerpt = (body) => {
     if (!body || !Array.isArray(body)) return null;
-    for (const block of body) {
-      if (block._type === 'block' && Array.isArray(block.children)) {
-        const text = block.children.map((child) => child.text || '').join('');
-        if (text.trim()) return text.trim();
-      }
-    }
-    return null;
+    const firstParagraph = body.find(block => block.type === 'paragraph');
+    return firstParagraph ? firstParagraph.content : null;
   };
 
   // Pagination Calculations
@@ -146,7 +122,7 @@ const BlogsGrid = () => {
                         <div className="aspect-[16/10] overflow-hidden relative">
                           {blog.mainImage ? (
                             <img 
-                              src={urlFor(blog.mainImage).url()} 
+                              src={blog.mainImage} 
                               alt={blog.title} 
                               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                             />

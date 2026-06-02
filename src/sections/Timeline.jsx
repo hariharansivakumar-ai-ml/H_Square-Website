@@ -30,12 +30,12 @@ const Timeline = () => {
     <section ref={sectionRef} className="py-16 md:py-24 bg-gray-50 relative overflow-hidden">
       <div className="container mx-auto px-6 relative z-10">
         <div className="text-center mb-20 space-y-4">
-          <span className="text-[#D6B97B] font-bold tracking-[0.3em] uppercase text-xs">Our Journey</span>
-          <h2 className="text-4xl md:text-6xl font-serif font-bold text-gray-900">
+          <span className="text-emerald-700 font-bold tracking-[0.3em] uppercase text-xs">Our Journey</span>
+          <h2 className="text-4xl md:text-5xl font-serif font-bold text-gray-900">
             Company <span className="gold-gradient">Timeline</span>
           </h2>
           <p className="text-gray-500 max-w-2xl mx-auto">
-            Landsndeeds has consistently delivered excellence, reliability, and growth every step of the way.
+            HSquare Promoters has consistently delivered excellence, reliability, and growth every step of the way.
           </p>
         </div>
 
@@ -52,7 +52,7 @@ const Timeline = () => {
                       <span className="text-4xl font-serif font-bold text-[#D6B97B]">{event.id}</span>
                       <div className="space-y-1">
                         <h3 className="text-xl font-serif font-bold text-gray-900">{event.title}</h3>
-                        <p className="text-[10px] uppercase tracking-widest text-[#D6B97B] font-bold">{event.subtitle}</p>
+                        <p className="text-[10px] uppercase tracking-widest text-emerald-700 font-bold">{event.subtitle}</p>
                       </div>
                     </div>
                     <p className="text-gray-500 leading-relaxed text-sm">

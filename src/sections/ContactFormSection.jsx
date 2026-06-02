@@ -6,23 +6,23 @@ const ContactFormSection = () => {
     {
       icon: <MapPin className="w-6 h-6 text-[#D6B97B]" />,
       title: "Location",
-      content: "No: 62, GV Residency, Sowripalayam., Coimbatore - 641028."
+      content: "xxxxxxxx, xxxxxxxx, xxxxxxxx - xxxxxx."
     },
     {
       icon: <Phone className="w-6 h-6 text-[#D6B97B]" />,
       title: "Phone",
       content: (
         <div className="flex flex-col">
-          <span>0422-4359777</span>
-          <span>+91 7010592827</span>
-          <span>+91 9944992530</span>
+          <span>xxxxxxxxxx</span>
+          <span>xxxxxxxxxx</span>
+          <span>xxxxxxxxxx</span>
         </div>
       )
     },
     {
       icon: <Mail className="w-6 h-6 text-[#D6B97B]" />,
       title: "Email",
-      content: "landsndeeds@gmail.com"
+      content: "xxxxxxxxxx@xxxxxxxx.com"
     }
   ];
 
@@ -38,7 +38,7 @@ const ContactFormSection = () => {
             className="space-y-12"
           >
             <div className="space-y-6">
-              <span className="text-[#D6B97B] font-bold tracking-[0.3em] uppercase text-xs">Reach Out</span>
+              <span className="text-emerald-700 font-bold tracking-[0.3em] uppercase text-xs">Reach Out</span>
               <h2 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 leading-tight">
                 For More Details <span className="gold-gradient">Contact Us!</span>
               </h2>

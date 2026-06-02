@@ -32,9 +32,9 @@ const Expertise = () => {
       <div className="container mx-auto px-6 relative z-10">
         <div className="expertise-content max-w-4xl mx-auto text-center space-y-3">
           <div className="space-y-1">
-            <span className="text-[#D6B97B] font-bold tracking-[0.3em] uppercase text-xs">{expertiseContent.headline}</span>
+            <span className="text-emerald-700 font-bold tracking-[0.3em] uppercase text-xs">{expertiseContent.headline}</span>
             <h2 className="text-4xl md:text-5xl font-serif font-bold text-gray-900">
-              {expertiseContent.subtext}
+              {expertiseContent.subtext.split(' ').slice(0, -1).join(' ')} <span className="gold-gradient">{expertiseContent.subtext.split(' ').slice(-1)[0]}</span>
             </h2>
           </div>
           
@@ -77,7 +77,7 @@ const Expertise = () => {
                 </div>
                 
                 <div className="relative z-10">
-                  <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-[#D6B97B] group-hover:text-gray-700 transition-colors duration-500">{stat.label}</p>
+                  <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-emerald-700 group-hover:text-gray-700 transition-colors duration-500">{stat.label}</p>
                 </div>
 
                 {/* Subtle background glow on hover */}

@@ -1,102 +1,80 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { PortableText } from '@portabletext/react';
 import { ArrowLeft, Calendar } from 'lucide-react';
-import { client, urlFor } from '../sanity/client';
+import { staticBlogs } from '../data/staticData';
 
-// Custom components to style PortableText elements to match the luxury theme
-const components = {
-  types: {
-    image: ({ value }) => {
-      if (!value || !value.asset) return null;
-      
-      const alignmentClass = value.alignment === 'left' ? 'mr-auto' : value.alignment === 'right' ? 'ml-auto' : 'mx-auto';
-      const sizeClass = value.size === 'small' ? 'w-1/4' : value.size === 'medium' ? 'w-2/4' : value.size === 'large' ? 'w-3/4' : 'w-full';
-
+// Custom lightweight body renderer for local static blog blocks
+const renderBodyBlock = (block, idx) => {
+  switch (block.type) {
+    case 'paragraph':
       return (
-        <div className={`my-10 flex flex-col ${alignmentClass} ${sizeClass}`}>
+        <p key={idx} className="text-gray-700 leading-relaxed mb-5 text-[1.05rem]">
+          {block.content}
+        </p>
+      );
+    case 'heading':
+      if (block.level === 1) {
+        return (
+          <h1 key={idx} className="text-4xl font-serif font-bold text-[#1A335E] mt-12 mb-5 leading-tight">
+            {block.content}
+          </h1>
+        );
+      } else if (block.level === 2) {
+        return (
+          <h2 key={idx} className="text-3xl font-serif font-bold text-[#1A335E] mt-10 mb-4 leading-snug border-b border-gray-100 pb-2">
+            {block.content}
+          </h2>
+        );
+      } else {
+        return (
+          <h3 key={idx} className="text-2xl font-serif font-bold text-[#1A335E] mt-8 mb-3 leading-snug">
+            {block.content}
+          </h3>
+        );
+      }
+    case 'blockquote':
+      return (
+        <blockquote key={idx} className="border-l-4 border-[#D6B97B] pl-6 my-8 py-3 text-lg italic text-gray-600 bg-amber-50/40 rounded-r-xl">
+          {block.content}
+        </blockquote>
+      );
+    case 'list':
+      if (block.style === 'bullet') {
+        return (
+          <ul key={idx} className="list-disc pl-7 mb-6 text-gray-700 space-y-1.5 text-[1.05rem] leading-relaxed">
+            {block.items.map((item, itemIdx) => (
+              <li key={itemIdx} className="pl-1">{item}</li>
+            ))}
+          </ul>
+        );
+      } else {
+        return (
+          <ol key={idx} className="list-decimal pl-7 mb-6 text-gray-700 space-y-1.5 text-[1.05rem] leading-relaxed">
+            {block.items.map((item, itemIdx) => (
+              <li key={itemIdx} className="pl-1">{item}</li>
+            ))}
+          </ol>
+        );
+      }
+    case 'image':
+      return (
+        <div key={idx} className="my-10 flex flex-col mx-auto w-full">
           <div className="rounded-2xl overflow-hidden shadow-xl">
             <img
-              src={urlFor(value).url()}
-              alt={value.alt || 'Blog Image'}
+              src={block.asset}
+              alt={block.alt || 'Blog Image'}
               className="w-full h-auto object-cover"
               loading="lazy"
             />
           </div>
-          {value.caption && (
-            <p className="text-center text-sm text-gray-500 mt-3 italic">{value.caption}</p>
+          {block.caption && (
+            <p className="text-center text-sm text-gray-500 mt-3 italic">{block.caption}</p>
           )}
         </div>
       );
-    },
-  },
-  marks: {
-    // Text decorations
-    strong: ({ children }) => <strong className="font-bold text-gray-900">{children}</strong>,
-    em: ({ children }) => <em className="italic">{children}</em>,
-    underline: ({ children }) => <span className="underline underline-offset-2">{children}</span>,
-    'strike-through': ({ children }) => <span className="line-through">{children}</span>,
-    code: ({ children }) => (
-      <code className="bg-gray-100 text-[#1A335E] font-mono text-sm px-1.5 py-0.5 rounded border border-gray-200">
-        {children}
-      </code>
-    ),
-    // Links
-    link: ({ children, value }) => {
-      const rel = !value.href.startsWith('/') ? 'noreferrer noopener' : undefined;
-      return (
-        <a href={value.href} rel={rel} target={value.blank ? '_blank' : '_self'} className="text-[#D6B97B] hover:text-[#1A335E] font-medium underline underline-offset-2 transition-colors">
-          {children}
-        </a>
-      );
-    },
-    // Custom color
-    textColor: ({ children, value }) => (
-      <span style={{ color: value.color?.hex }}>{children}</span>
-    ),
-    // Highlight
-    highlight: ({ children, value }) => (
-      <mark style={{ backgroundColor: value.color?.hex || '#FEF9C3' }} className="px-0.5 rounded">
-        {children}
-      </mark>
-    ),
-  },
-  block: {
-    h1: ({ children }) => <h1 className="text-4xl font-serif font-bold text-[#1A335E] mt-12 mb-5 leading-tight">{children}</h1>,
-    h2: ({ children }) => <h2 className="text-3xl font-serif font-bold text-[#1A335E] mt-10 mb-4 leading-snug border-b border-gray-100 pb-2">{children}</h2>,
-    h3: ({ children }) => <h3 className="text-2xl font-serif font-bold text-[#1A335E] mt-8 mb-3 leading-snug">{children}</h3>,
-    h4: ({ children }) => <h4 className="text-xl font-serif font-semibold text-[#1A335E] mt-7 mb-3">{children}</h4>,
-    h5: ({ children }) => <h5 className="text-lg font-serif font-semibold text-[#1A335E] mt-6 mb-2">{children}</h5>,
-    h6: ({ children }) => <h6 className="text-base font-serif font-semibold text-gray-600 uppercase tracking-wider mt-5 mb-2">{children}</h6>,
-    normal: ({ children }) => {
-      // Render empty paragraphs as spacers
-      if (!children || (Array.isArray(children) && children.every(c => c === '' || c == null))) {
-        return <div className="h-4" />;
-      }
-      return <p className="text-gray-700 leading-relaxed mb-5 text-[1.05rem]">{children}</p>;
-    },
-    blockquote: ({ children }) => (
-      <blockquote className="border-l-4 border-[#D6B97B] pl-6 my-8 py-3 text-lg italic text-gray-600 bg-amber-50/40 rounded-r-xl">
-        {children}
-      </blockquote>
-    ),
-  },
-  list: {
-    bullet: ({ children }) => (
-      <ul className="list-disc pl-7 mb-6 text-gray-700 space-y-1.5 text-[1.05rem] leading-relaxed">
-        {children}
-      </ul>
-    ),
-    number: ({ children }) => (
-      <ol className="list-decimal pl-7 mb-6 text-gray-700 space-y-1.5 text-[1.05rem] leading-relaxed">
-        {children}
-      </ol>
-    ),
-  },
-  listItem: {
-    bullet: ({ children }) => <li className="pl-1">{children}</li>,
-    number: ({ children }) => <li className="pl-1">{children}</li>,
-  },
+    default:
+      return null;
+  }
 };
 
 const BlogDetails = () => {
@@ -105,21 +83,12 @@ const BlogDetails = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchPost = async () => {
+    const fetchPost = () => {
       try {
-        const query = `*[_type == "blog" && slug.current == $slug][0]{
-          title,
-          mainImage,
-          publishedAt,
-          body,
-          "categoryName": blogCategory->title,
-          tags
-        }`;
-        
-        const result = await client.fetch(query, { slug });
-        setPost(result);
+        const result = staticBlogs.find((blog) => blog.slug?.current === slug);
+        setPost(result || null);
       } catch (error) {
-        console.error("Failed to fetch blog post:", error);
+        console.error("Failed to find blog post:", error);
       } finally {
         setIsLoading(false);
       }
@@ -131,10 +100,10 @@ const BlogDetails = () => {
 
   useEffect(() => {
     if (post && post.title) {
-      document.title = `${post.title} | LandsnDeeds`;
+      document.title = `${post.title} | HSquare Promoters`;
     }
     return () => {
-      document.title = 'LandsnDeeds | Luxury Real Estate & Premium Properties';
+      document.title = 'HSquare Promoters | Premium Real Estate Solutions for Modern Investors';
     };
   }, [post]);
 
@@ -204,7 +173,7 @@ const BlogDetails = () => {
         {post.mainImage && (
           <div className="w-full rounded-3xl overflow-hidden mb-16 shadow-2xl">
             <img 
-              src={urlFor(post.mainImage).url()} 
+              src={post.mainImage} 
               alt={post.title} 
               className="w-full h-auto block"
             />
@@ -213,11 +182,8 @@ const BlogDetails = () => {
 
         {/* Rich Text Body */}
         <div className="prose prose-lg max-w-none">
-          {post.body ? (
-            <PortableText 
-              value={post.body} 
-              components={components} 
-            />
+          {post.body && post.body.length > 0 ? (
+            post.body.map((block, idx) => renderBodyBlock(block, idx))
           ) : (
             <p className="text-gray-500 italic text-center py-10">This post has no content yet.</p>
           )}

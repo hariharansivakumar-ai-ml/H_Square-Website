@@ -1,54 +1,70 @@
 export const properties = [
   {
     id: 1,
-    title: "Prime DTCP Residential Plot",
-    location: "Sowripalayam, Coimbatore",
-    price: "₹45,00,000",
-    image: "property1", // Will be replaced in component
+    title: "Premium Residential Plots",
+    location: "Future Growth Locations",
+    price: "On Request",
+    image: "property1",
     beds: "N/A",
     baths: "N/A",
-    sqft: "2,400"
+    sqft: "N/A",
+    desc: "Carefully selected locations with strong future growth potential."
   },
   {
     id: 2,
-    title: "Industrial Warehouse Space",
-    location: "SIPCOT, Hosur",
-    price: "₹2,80,00,000",
-    image: "property2", // Will be replaced in component
+    title: "Luxury Villa Communities",
+    location: "Modern Developments",
+    price: "On Request",
+    image: "property2",
     beds: "N/A",
-    baths: "4",
-    sqft: "12,000"
+    baths: "N/A",
+    sqft: "N/A",
+    desc: "Modern developments designed for comfort, lifestyle, and value appreciation."
+  },
+  {
+    id: 3,
+    title: "Commercial Investment Spaces",
+    location: "Strategic Locations",
+    price: "On Request",
+    image: "property3",
+    beds: "N/A",
+    baths: "N/A",
+    sqft: "N/A",
+    desc: "Strategic commercial properties for businesses and long-term investors."
   }
 ];
 
 export const heroContent = {
-  headline: "Own Your Land with Confidence",
-  tagline: "Reliability Assurance",
-  subtext: "We hold, sell, lease, and do due diligence of all kind of properties."
+  headline: "Premium Real Estate Solutions for Modern Investors",
+  tagline: "Building Trust. Creating Value.",
+  subtext: "At HSquare Promoters, we help individuals, families, and investors discover high-potential real estate opportunities with confidence. From residential plots and villas to commercial developments, we deliver transparent guidance, verified properties, and seamless transactions that help you make informed investment decisions."
 };
 
 export const aboutContent = {
-  headline: "About Us",
-  mainText: "Our Unique expertise ensures a formidable assurance in every Immovable Property transactions. At Landsndeeds, our experienced team of professionals in the fields of real estate and legal services, combined with a trusted network across Tamil Nadu, ensures the mitigation of risks involved in your real estate transactions.",
-  subText: "Backed by eminent former IAS, IRS officers, and high-ranking revenue and registration officials, we bring unparalleled domain expertise to every real estate transaction. From identifying the right buyer or seller to conducting comprehensive due diligence on the property and individuals involved, we offer a guarantee or true value for money.",
-  founder: "MR.V.RATHNA SABAPATHY",
-  founderTitle: "B.Sc., B.Ed., MBA., LL.B., MBL., ADNEC., FOUNDER"
+  headline: "We Build Trust Through Real Estate Excellence",
+  mainText: "At HSquare Promoters, we are passionate about helping individuals, families, and investors make confident real estate decisions. With extensive industry knowledge and a commitment to transparency, we simplify the process of buying, selling, and investing in properties.",
+  subText: "Our team combines market expertise, strategic planning, and customer-focused service to deliver real estate solutions that create long-term value. From identifying promising investment opportunities to ensuring smooth transactions, we guide our clients through every stage of their property journey.",
+  founder: "Mr. H. Shankar",
+  founderTitle: "Founder & Managing Director"
 };
 
 export const whyChooseUsContent = {
-  headline: "Why Choose Us?",
-  text: "At Lands N Deeds, we provide reliable property verification Tamil Nadu services with complete land due diligence and accurate land title check processes to ensure safe land buying. Our expert team verifies property authenticity, checks buyer credibility, and facilitates smooth communication through secure video calls or in-person meetings. With our transparent and systematic approach, your real estate transaction becomes easier, faster, and more trustworthy.",
+  headline: "Our Priority",
+  text: "At HSquare Promoters, we go beyond property transactions. We focus on delivering value, security, and peace of mind through every stage of your real estate journey.",
   stats: [
-    { label: "Quality", value: "100%" },
-    { label: "Trust", value: "100%" },
-    { label: "Satisfaction", value: "100%" }
+    { label: "Satisfaction", value: "98%" },
+    { label: "Listings", value: "100%" },
+    { label: "Support", value: "100%" }
   ],
   bullets: [
-    "Expert Team with Extensive Industry Knowledge",
-    "Trusted Network Across Tamil Nadu",
-    "Thorough Property and Buyer Verification",
-    "Transparent and Efficient Transaction Process",
-    "Secured In-Person and Virtual Meetings"
+    "Verified and Legally Compliant Properties",
+    "Experienced Real Estate Professionals",
+    "Strategic Investment Guidance",
+    "Transparent Documentation Process",
+    "Personalized Client Support",
+    "Strong Network Across Tamil Nadu",
+    "Competitive Pricing and Market Insights",
+    "Hassle-Free Property Transactions"
   ]
 };
 
@@ -56,59 +72,59 @@ export const timelineEvents = [
   {
     id: 1,
     title: "Foundation",
-    subtitle: "Company Established",
-    description: "Landsndeeds is established with a clear vision to ensure hassle - free simplify and secure real estate transactions. At every step, we are focusing on providing transparent, reliable, and efficient services to our clients across Tamil Nadu."
+    subtitle: "The Beginning",
+    description: "HSquare Promoters was established with a vision to simplify real estate investments and provide trusted property solutions."
   },
   {
     id: 2,
-    title: "Growth",
-    subtitle: "Expansion to New Locations",
-    description: "As we grow, we expand our services to multiple cities, allowing us to reach a wider audience and strengthen our network. This expansion enables us to offer more personalized and accessible property solutions to our clients."
+    title: "Expansion",
+    subtitle: "Growing Our Reach",
+    description: "Expanded services across multiple locations while building strong relationships with clients and property developers."
   },
   {
     id: 3,
     title: "Innovation",
-    subtitle: "Launch of Digital Solutions",
-    description: "To meet the changing needs of the market, we introduced our digital platform, allowing clients to access and complete real estate transactions online. This innovation made our services even more convenient and transparent for property buyers and sellers."
+    subtitle: "Modern Real Estate Approach",
+    description: "Integrated technology-driven solutions to improve property discovery, customer engagement, and transaction efficiency."
   },
   {
     id: 4,
-    title: "Success",
-    subtitle: "National Recognition and Growth",
-    description: "Our success led us to expand beyond Tamil Nadu, earning recognition for excellence in real estate transactions and legal solutions. We became a trusted name in the industry, delivering seamless experiences for clients across the country."
+    title: "Excellence",
+    subtitle: "Trusted by Investors",
+    description: "Became a preferred real estate partner known for professionalism, transparency, and successful project delivery."
   }
 ];
 
 export const expertiseContent = {
-  headline: "Expertise",
-  subtext: "We Secure and Simplify Your Real Estate Transactions!",
-  mainDesc: "Our team ensures a smooth and trustworthy experience in buying, selling, and property management. With years of expertise and a transparent process, we make your real estate journey effortless.",
+  headline: "Our Expertise",
+  subtext: "Transforming Dreams",
+  mainDesc: "Whether you are purchasing your first property, expanding your investment portfolio, or selling valuable assets, our team ensures a smooth and rewarding experience.",
   stats: [
-    { label: "Best Performance", value: "97%" },
-    { label: "High Quality", value: "100%" },
-    { label: "Top Team", value: "100%" }
+    { label: "Client Satisfaction", value: "98" },
+    { label: "Verified Listings", value: "100" },
+    { label: "Professional Support", value: "100" }
   ]
 };
 
 export const faqs = [
   {
-    question: "What services does LandsNDeeds offer?",
-    answer: "We provide professional assistance with land transactions, property documentation, legal advice, and deed registration."
+    question: "What types of properties do you offer?",
+    answer: "We provide residential plots, villas, commercial properties, and investment-focused real estate opportunities."
   },
   {
-    question: "How do I know whether my land documents are valid?",
-    answer: "Our expert team conducts thorough land due diligence and title checks to verify document validity and mitigate risks."
+    question: "How do you verify properties?",
+    answer: "Our team performs detailed verification of legal documents, ownership records, and development approvals before listing properties."
   },
   {
-    question: "What steps are involved in buying or selling land?",
-    answer: "We facilitate the entire process from identifying buyers/sellers to due diligence and final registration."
+    question: "Do you assist with property documentation?",
+    answer: "Yes. We provide complete support for documentation, registration guidance, and transaction processes."
   },
   {
-    question: "Do you certify the purchaseability or saleability of Immovable Properties?",
-    answer: "Yes, we bring unparalleled domain expertise to ensure true value for money and property authenticity."
+    question: "Can first-time buyers invest with confidence?",
+    answer: "Absolutely. Our experts guide first-time buyers through every stage, ensuring informed and secure decisions."
   },
   {
-    question: "Do you provide legal assistance for property disputes?",
-    answer: "Our team includes professionals in legal services to assist with various property-related legal matters."
+    question: "Do you offer investment consultation?",
+    answer: "Yes. We help clients identify high-potential properties based on market trends, location advantages, and investment goals."
   }
 ];

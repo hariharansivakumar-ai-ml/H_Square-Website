@@ -13,7 +13,6 @@ const Gallery = lazy(() => import('./pages/Gallery'));
 const Properties = lazy(() => import('./pages/Properties'));
 const Blogs = lazy(() => import('./pages/Blogs'));
 const BlogDetails = lazy(() => import('./pages/BlogDetails'));
-const StudioPage = lazy(() => import('./pages/StudioPage'));
 
 const PageLoader = () => (
   <div className="flex justify-center items-center min-h-[60vh] py-20 bg-white">
@@ -28,9 +27,6 @@ function App() {
       <ChunkErrorBoundary>
         <Suspense fallback={<PageLoader />}>
           <Routes>
-            {/* Isolated Studio Route */}
-            <Route path="/studio/*" element={<StudioPage />} />
-            
             {/* Main Website Routes */}
             <Route element={<MainLayout />}>
               <Route path="/" element={<Home />} />

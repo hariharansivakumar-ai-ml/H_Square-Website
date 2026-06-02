@@ -45,7 +45,7 @@ class ChunkErrorBoundary extends React.Component {
               Updating Application
             </h2>
             <p className="text-gray-500 mb-8 max-w-md text-sm leading-relaxed">
-              We're loading the latest version of LandsnDeeds. This will take just a few seconds.
+              We're loading the latest version of HSquare Promoters. This will take just a few seconds.
             </p>
             <div className="flex flex-col items-center gap-3">
               <div className="animate-spin rounded-full h-10 w-10 border-2 border-gray-100 border-b-[#D6B97B]"></div>

@@ -3,11 +3,8 @@ import { Search, MapPin, Home as HomeIcon, DollarSign } from 'lucide-react';
 import gsap from 'gsap';
 import { heroContent } from '../data/content';
 
-// Import images for slideshow
-import prop2 from '../assets/property2.webp';
-import prop3 from '../assets/property3.webp';
-import prop6 from '../assets/property6.webp';
-import prop7 from '../assets/property7.webp';
+// Import video for background
+import heroVideo from '../assets/Home_Hero.mp4';
 
 const Hero = () => {
   const containerRef = useRef(null);
@@ -16,28 +13,24 @@ const Hero = () => {
 
   const slides = [
     {
-      image: prop3,
-      tagline: "Trusted Solutions",
-      headline: "Own Your Land with Confidence Hassle-Free!",
-      subtext: "We hold, sell, lease, and do due diligence of all kind of properties."
+      tagline: "Building Trust. Creating Value.",
+      headline: "Premium Real Estate",
+      subtext: "At HSquare Promoters, we help individuals, families, and investors discover high-potential real estate opportunities with confidence."
     },
     {
-      image: prop2,
-      tagline: "Reliability Assurance",
-      headline: "Secure Your Real Estate Future with Precision",
-      subtext: "Unparalleled domain expertise backed by former high-ranking revenue and registration officials."
+      tagline: "Residential Opportunities",
+      headline: "Premium Residential Plots",
+      subtext: "Discover handpicked, verified plots across Tamil Nadu with strong future growth potential and clear legal documentation."
     },
     {
-      image: prop6,
-      tagline: "Unparalleled Expertise",
-      headline: "We Secure and Simplify Your Transactions!",
-      subtext: "Experienced professionals ensuring the mitigation of risks involved in your real estate dealings."
+      tagline: "Luxury Villa Communities",
+      headline: "Luxury Villa Communities",
+      subtext: "Explore modern residential communities designed to deliver comfort, modern lifestyle, and value appreciation."
     },
     {
-      image: prop7,
-      tagline: "Trusted Network",
-      headline: "Transparent and Systematic Property Verification",
-      subtext: "Complete land due diligence and accurate land title check processes across Tamil Nadu."
+      tagline: "Commercial Property Solutions",
+      headline: "Strategic Commercial Spaces",
+      subtext: "Identify high-yield commercial developments and investment opportunities tailored to your business objectives."
     }
   ];
 
@@ -92,16 +85,18 @@ const Hero = () => {
   const currentSlide = slides[currentImageIndex];
 
   return (
-    <section ref={containerRef} className="relative min-h-[90vh] w-full overflow-hidden flex items-center bg-white pt-28 pb-12">
-      {/* Background Slideshow */}
+    <section ref={containerRef} className="relative min-h-screen w-full overflow-hidden flex items-center bg-white pt-28 pb-12">
+      {/* Background Video */}
       <div className="absolute inset-0 z-0">
-        {slides.map((slide, i) => (
-          <div 
-            key={i}
-            className={`hero-bg absolute inset-0 w-full h-full bg-cover bg-center transition-opacity duration-1500 ease-in-out ${i === currentImageIndex ? 'opacity-100' : 'opacity-0'}`}
-            style={{ backgroundImage: `url(${slide.image})` }}
-          />
-        ))}
+        <video 
+          autoPlay 
+          loop 
+          muted 
+          playsInline 
+          className="hero-bg absolute inset-0 w-full h-full object-cover"
+        >
+          <source src={heroVideo} type="video/mp4" />
+        </video>
         {/* Brand Gradient Overlays for Readability */}
         <div className="absolute inset-0 luxury-gradient-bg opacity-70 mix-blend-multiply z-[1]" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#1A335E]/80 via-transparent to-transparent z-[1]" />
@@ -110,16 +105,16 @@ const Hero = () => {
       <div ref={textContainerRef} className="container mx-auto px-6 relative z-10">
         <div className="max-w-5xl">
           <div className="overflow-hidden mb-4">
-            <span className="reveal-tagline block text-[#D6B97B] font-bold tracking-[0.3em] uppercase text-sm">
+            <span className="reveal-tagline block text-emerald-400 font-bold tracking-[0.3em] uppercase text-sm">
               {currentSlide.tagline}
             </span>
           </div>
           
           <div className="overflow-hidden mb-8">
-            <h1 className="text-5xl md:text-7xl font-serif font-bold text-white leading-tight">
+            <h1 className="text-4xl md:text-5xl font-serif font-bold text-white leading-tight">
               {currentSlide.headline.split(' ').map((word, i) => (
                 <span key={i} className="inline-block overflow-hidden mr-[0.2em] last:mr-0">
-                  <span className={`reveal-word inline-block ${word === 'Land' || word === 'Confidence' || word === 'Precision' || word === 'Precision' || word === 'Transactions!' || word === 'Verification' ? 'gold-gradient' : ''}`}>
+                  <span className={`reveal-word inline-block ${i > 0 ? 'gold-gradient' : ''}`}>
                     {word}
                   </span>
                 </span>

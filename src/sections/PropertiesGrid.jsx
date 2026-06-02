@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MapPin, Expand, ArrowRight, ShieldCheck, X, FileText, CheckCircle2 } from 'lucide-react';
-import { client, urlFor } from '../sanity/client';
+import { staticProperties } from '../data/staticData';
 
 const PropertiesGrid = () => {
   const [selectedFilter, setSelectedFilter] = useState('All');
@@ -14,39 +14,17 @@ const PropertiesGrid = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchProperties = async () => {
-      try {
-        const query = `*[_type == "property"]{
-          _id,
-          title,
-          category,
-          location,
-          price,
-          area,
-          image,
-          status,
-          desc
-        }`;
-        
-        const results = await client.fetch(query);
-        
-        let extractedCategories = new Set(['All']);
-        results.forEach(prop => {
-          if (prop.category) {
-            extractedCategories.add(prop.category);
-          }
-        });
-
-        setCategories(Array.from(extractedCategories));
-        setPropertyList(results);
-      } catch (error) {
-        console.error("Failed to fetch properties:", error);
-      } finally {
-        setIsLoading(false);
+    // Load static properties and extract categories
+    const extractedCategories = new Set(['All']);
+    staticProperties.forEach(prop => {
+      if (prop.category) {
+        extractedCategories.add(prop.category);
       }
-    };
+    });
 
-    fetchProperties();
+    setCategories(Array.from(extractedCategories));
+    setPropertyList(staticProperties);
+    setIsLoading(false);
   }, []);
 
   const filteredProperties = selectedFilter === 'All'
@@ -105,32 +83,19 @@ const PropertiesGrid = () => {
                     transition={{ duration: 0.4 }}
                     className="group bg-white rounded-3xl overflow-hidden shadow-xl border border-gray-100 flex flex-col justify-between hover:shadow-2xl hover:border-[#D6B97B]/30 transition-all duration-500 hover:-translate-y-2 relative"
                   >
-                    <div>
-                      {/* Image and status badge */}
-                      <div className="aspect-[16/10] overflow-hidden relative">
-                        {property.image ? (
-                          <img 
-                            src={urlFor(property.image).url()} 
-                            alt={property.title} 
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                          />
-                        ) : (
-                          <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                            <span className="text-gray-400">No Image</span>
-                          </div>
-                        )}
-                        <div className="absolute top-4 left-4 flex gap-2">
-                          <span className={`text-[9px] font-bold uppercase tracking-wider px-3 py-1 rounded-full text-white ${
-                            property.status === 'Verified' ? 'bg-[#1A335E]' : 
-                            property.status === 'Sold' ? 'bg-red-600' : 'bg-amber-600'
-                          }`}>
-                            {property.status || 'Available'}
-                          </span>
-                          <span className="text-[9px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-white/90 text-gray-800 backdrop-blur-sm">
-                            {property.category || 'Property'}
-                          </span>
-                        </div>
+                      {/* Status & Category Badges */}
+                      <div className="px-6 pt-6 flex gap-2">
+                        <span className={`text-[9px] font-bold uppercase tracking-wider px-3 py-1 rounded-full text-white ${
+                          property.status === 'Verified' ? 'bg-[#1A335E]' : 
+                          property.status === 'Sold' ? 'bg-red-600' : 'bg-amber-600'
+                        }`}>
+                          {property.status || 'Available'}
+                        </span>
+                        <span className="text-[9px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-gray-100 text-gray-700">
+                          {property.category || 'Property'}
+                        </span>
                       </div>
+
 
                       {/* Metadata Content */}
                       <div className="p-6 space-y-4">
@@ -160,7 +125,6 @@ const PropertiesGrid = () => {
                           </div>
                         </div>
                       </div>
-                    </div>
 
                     {/* Pricing / CTA row */}
                     <div className="p-6 bg-gray-50 border-t border-gray-100 flex justify-between items-center mt-auto">

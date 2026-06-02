@@ -13,7 +13,6 @@ export default defineConfig({
     assetsDir: 'assets',
     sourcemap: false, // Disables source maps for faster production builds and smaller upload sizes
     cssCodeSplit: true, // Splits CSS into relevant chunks to optimize load speed
-    chunkSizeWarningLimit: 1500, // Suppress warnings for larger packages (like Sanity)
     rollupOptions: {
       output: {
         entryFileNames: 'assets/[name]-[hash].js',
@@ -21,9 +20,6 @@ export default defineConfig({
         assetFileNames: 'assets/[name]-[hash].[ext]',
         manualChunks(id) {
           if (id.includes('node_modules')) {
-            if (id.includes('sanity') || id.includes('@sanity')) {
-              return 'sanity-vendor';
-            }
             if (id.includes('gsap')) {
               return 'gsap';
             }

@@ -23,8 +23,8 @@ const FAQ = () => {
         
         {/* Centered Premium Header */}
         <div className="text-center max-w-2xl mx-auto mb-16 space-y-4">
-          <span className="text-[#D6B97B] font-bold tracking-[0.3em] uppercase text-xs">Help Center</span>
-          <h2 className="text-4xl md:text-6xl font-serif font-bold text-gray-900 leading-tight">
+          <span className="text-emerald-700 font-bold tracking-[0.3em] uppercase text-xs">Help Center</span>
+          <h2 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 leading-tight">
             Frequently Asked <br />
             <span className="gold-gradient">Questions</span>
           </h2>

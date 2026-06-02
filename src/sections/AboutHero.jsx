@@ -8,7 +8,7 @@ const AboutHero = () => {
           <motion.span 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-[#D6B97B] font-bold tracking-[0.3em] uppercase text-xs"
+            className="text-emerald-400 font-bold tracking-[0.3em] uppercase text-xs"
           >
             About Us
           </motion.span>

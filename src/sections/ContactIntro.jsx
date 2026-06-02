@@ -11,7 +11,7 @@ const ContactIntro = () => {
           className="text-gray-600 text-lg leading-relaxed"
         >
           <p>
-            Whether you’re looking to buy, sell, rent, or manage properties, the LandsnDeeds team is ready to assist. Reach out to us for personalized solutions and expert guidance on all your real estate needs. Contact us today to start your journey toward finding the perfect property!
+            Whether you’re looking to buy, sell, rent, or manage properties, the HSquare Promoters team is ready to assist. Reach out to us for personalized solutions and expert guidance on all your real estate needs. Contact us today to start your journey toward finding the perfect property!
           </p>
         </motion.div>
       </div>

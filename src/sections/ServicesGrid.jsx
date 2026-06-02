@@ -1,36 +1,36 @@
 import { motion } from 'framer-motion';
-import { Factory, Building2, Leaf, Home, Settings, FileText } from 'lucide-react';
+import { MapPin, Home, Building2, TrendingUp, Coins, FileText } from 'lucide-react';
 
 const ServicesGrid = () => {
   const primaryServices = [
     {
-      title: "Industrial Property Services",
-      desc: "Access industrial properties, including factories, warehouses, and land suitable for large-scale operations.",
-      icon: <Factory className="w-10 h-10 text-[#D6B97B]" />
+      title: "Residential Plot Development",
+      desc: "Explore carefully selected residential plots in high-growth locations with excellent infrastructure and future appreciation potential.",
+      icon: <MapPin className="w-10 h-10 text-[#D6B97B]" />
     },
     {
-      title: "Commercial Property Solutions",
-      desc: "Unlock ideal commercial spaces, including land and buildings tailored for retail, offices, and enterprises.",
-      icon: <Building2 className="w-10 h-10 text-[#D6B97B]" />
-    },
-    {
-      title: "Agricultural Land Services",
-      desc: "Explore premium agricultural lands designed for farming, plantations, and sustainable agri-business ventures.",
-      icon: <Leaf className="w-10 h-10 text-[#D6B97B]" />
-    },
-    {
-      title: "Residential Property Solutions",
-      desc: "Discover residential plots and buildings, from luxurious villas to apartments and ready-to-move homes.",
+      title: "Villa Communities",
+      desc: "Discover thoughtfully designed villa projects that combine modern architecture, comfort, and lifestyle-focused living.",
       icon: <Home className="w-10 h-10 text-[#D6B97B]" />
     },
     {
-      title: "Property Management",
-      desc: "Ensure seamless property upkeep with tenant services, lease management, and maintenance solutions.",
-      icon: <Settings className="w-10 h-10 text-[#D6B97B]" />
+      title: "Commercial Property Development",
+      desc: "Find commercial spaces and business investment opportunities in prime locations that support sustainable growth.",
+      icon: <Building2 className="w-10 h-10 text-[#D6B97B]" />
     },
     {
-      title: "Legal and Documentation Support",
-      desc: "Simplify property transaction processes with assistance in registration, contracts, deeds, and legal compliance.",
+      title: "Property Sales & Marketing",
+      desc: "We connect buyers and sellers through effective marketing strategies, professional guidance, and transparent transactions.",
+      icon: <TrendingUp className="w-10 h-10 text-[#D6B97B]" />
+    },
+    {
+      title: "Real Estate Investment Advisory",
+      desc: "Receive expert insights on emerging market opportunities and investment strategies tailored to your goals.",
+      icon: <Coins className="w-10 h-10 text-[#D6B97B]" />
+    },
+    {
+      title: "Documentation & Transaction Support",
+      desc: "Experience hassle-free property transactions with complete assistance for documentation, registration, and compliance processes.",
       icon: <FileText className="w-10 h-10 text-[#D6B97B]" />
     }
   ];
@@ -40,7 +40,7 @@ const ServicesGrid = () => {
       <div className="container mx-auto px-6">
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {primaryServices.map((service, i) => (
-            <motion.div 
+            <motion.div
               key={i}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}

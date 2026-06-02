@@ -10,13 +10,16 @@ const ServicesCTA = () => {
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-4xl mx-auto text-center space-y-10">
           <h2 className="text-4xl md:text-5xl font-serif font-bold text-white leading-tight">
-            Find world Best <span className="gold-gradient">Services & Resources!</span>
+            Find Exceptional <span className="gold-gradient">Property Opportunities</span>
           </h2>
           <p className="text-gray-300 text-lg leading-relaxed">
-            Discover top-tier solutions for all your property needs. Whether it’s agricultural land, commercial spaces, industrial zones, or residential properties, we provide expert guidance and unmatched resources that could help you to achieve your goals.
+            Whether you're searching for your dream home, a profitable investment, or commercial property, HSquare Promoters offers trusted expertise and premium real estate solutions.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-6 pt-6">
-            <Link to="/contact" className="px-10 py-4 bg-[#D6B97B] text-[#0F0F0F] rounded-full font-bold hover:bg-white transition-all transform hover:scale-105 uppercase tracking-widest text-xs">
+            <Link
+              to="/contact"
+              className="px-10 py-4 bg-[#D6B97B] text-[#0F0F0F] rounded-full font-bold hover:bg-white transition-all transform hover:scale-105 uppercase tracking-widest text-xs"
+            >
               Contact Us
             </Link>
           </div>

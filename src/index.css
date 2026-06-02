@@ -34,6 +34,7 @@ h1, h2, h3, h4 {
   color: var(--color-brand-blue);
 }
 
+section.relative.min-h-screen h1,
 section.relative.min-h-\[90vh\] h1 {
   color: white !important;
 }

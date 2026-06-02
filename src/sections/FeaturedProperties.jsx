@@ -5,8 +5,9 @@ import { properties } from '../data/content';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-import prop1 from '../assets/property1.webp';
-import prop2 from '../assets/property2.webp';
+import prop1 from '../assets/featured_prop_1.png';
+import prop2 from '../assets/featured_prop_2.png';
+import prop3 from '../assets/featured_prop_3.png';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -15,7 +16,8 @@ const FeaturedProperties = () => {
   
   const propertyImages = {
     property1: prop1,
-    property2: prop2
+    property2: prop2,
+    property3: prop3
   };
 
   useEffect(() => {
@@ -41,8 +43,8 @@ const FeaturedProperties = () => {
       <div className="container mx-auto px-6">
         <div className="flex flex-col md:flex-row justify-between items-end gap-8 mb-16">
           <div className="space-y-4">
-            <span className="text-[#D6B97B] font-bold tracking-[0.3em] uppercase text-xs">Curated Selection</span>
-            <h2 className="text-4xl md:text-6xl font-serif font-bold text-[#1A335E]">
+            <span className="text-emerald-700 font-bold tracking-[0.3em] uppercase text-xs">Curated Selection</span>
+            <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#1A335E]">
               Featured <span className="gold-gradient">Masterpieces</span>
             </h2>
           </div>
@@ -51,7 +53,7 @@ const FeaturedProperties = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-12">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
           {properties.map((property) => (
             <div 
               key={property.id} 
